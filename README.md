@@ -1,4 +1,5 @@
 [![AppVeyor status](https://ci.appveyor.com/api/projects/status/github/omero-ms-image-region)](https://ci.appveyor.com/project/gs-jenkins/omero-ms-image-region)
+[![Actions Status](https://github.com/ome/omero-ms-image-region/workflows/Build/badge.svg)](https://github.com/ome/omero-ms-image-region/actions)
 
 OMERO Image Region Microservice
 ===============================
