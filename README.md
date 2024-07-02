@@ -33,12 +33,6 @@ repository.
 
 1. Redirecting your OMERO.web installation to use the microservice endpoint
 
-Build Artifacts
-===============
-
-The latest artifacts, built by AppVeyor, can be found here::
-
-* https://ci.appveyor.com/project/gs-jenkins/omero-ms-image-region/build/artifacts
 
 Configuring and Running the Server
 ==================================
