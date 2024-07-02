@@ -26,3 +26,12 @@ jobs:
         with:
           name: omero-ms-image-region ${{ matrix.java }}
           path: build/distributions/*
+      - name: Set ARTIFACTORY_URL
+        run: |
+          echo "ARTIFACTORY_URL=https://artifacts.openmicroscopy.org/artifactory/ome.releases" >> $GITHUB_ENV
+      - name: Publish
+        if: startsWith(github.ref, 'refs/tags') && github.repository_owner == 'ome' && matrix.java == 11
+        run: ./gradlew publish
+        env:
+          ARTIFACTORY_USER: ${{ secrets.ARTIFACTORY_USER }}
+          ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
