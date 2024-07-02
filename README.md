@@ -1,3 +1,5 @@
+[![Actions Status](https://github.com/ome/omero-ms-image-region/workflows/Gradle/badge.svg)](https://github.com/ome/omero-ms-image-region/actions)
+
 OMERO Image Region Microservice
 ===============================
 
