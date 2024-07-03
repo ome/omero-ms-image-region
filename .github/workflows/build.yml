@@ -29,6 +29,7 @@ jobs:
 
   upload:
     needs: build
+    if: startsWith(github.ref, 'refs/tags') && github.repository_owner == 'ome'
     strategy:
       matrix:
         java: [11]
@@ -48,5 +49,3 @@ jobs:
           gh release create "$tag_name" ./*.zip ./*.tar SHASUMS
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
