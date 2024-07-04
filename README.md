@@ -6,6 +6,9 @@ OMERO Image Region Microservice
 OMERO image region and shape mask Vert.x asynchronous microservice server
 endpoint for OMERO.web.
 
+:warning: **This microservice is not ready to be used with an OMERO.server without removing the ``OMEZarrReader``
+from the server. The microservice has only tested in the context of the Image Data Resource (IDR).**
+
 Requirements
 ============
 
