@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.glencoesoftware.omero'
-version = '0.10.0'
+version = '0.10.0-SNAPSHOT'
 
 mainClassName = 'com.glencoesoftware.omero.ms.image.region.OmeroVertxLauncher'
 
@@ -14,6 +14,9 @@ targetCompatibility = 1.11
 repositories {
     mavenCentral()
     mavenLocal()
+    maven {
+        url 'https://artifacts.openmicroscopy.or/artifactory/ome.releases'
+    }
     maven {
         name 'Unidata'
         url 'https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases'
@@ -69,6 +72,7 @@ dependencies {
     implementation 'io.vertx:vertx-micrometer-metrics:3.8.5'
     implementation 'io.micrometer:micrometer-registry-prometheus:1.3.0'
     implementation 'org.openmicroscopy:omero-blitz:5.7.3'
+    implementation 'ome:OMEZarrReader:0.5.1'
     implementation 'io.prometheus.jmx:collector:0.12.0'
     implementation 'io.prometheus:simpleclient_hotspot:0.8.0'
     implementation 'info.picocli:picocli:4.1.4'
@@ -82,7 +86,7 @@ dependencies {
 
     testImplementation("junit:junit:4.12")
     testImplementation 'org.mockito:mockito-core:2.28.2'
-    testImplementation 'com.glencoesoftware:bioformats2raw:0.9.1'
+    testImplementation 'com.glencoesoftware:bioformats2raw:0.9.3'
     testImplementation 'info.picocli:picocli:4.7.5'
 }
 
