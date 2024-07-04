@@ -26,10 +26,9 @@ jobs:
         with:
           name: omero-ms-image-region_${{ matrix.java }}
           path: build/distributions/*
-
   upload:
     needs: build
-    if: startsWith(github.ref, 'refs/tags') && github.repository_owner == 'ome'
+    if: startsWith(github.ref, 'refs/tags')
     strategy:
       matrix:
         java: [11]
@@ -43,9 +42,22 @@ jobs:
       - name: Create a release and upload Release Assets
         run:  |
           cd ./omero-ms-image-region_${{ matrix.java }}
+          tag_name="${GITHUB_REF##*/}"
+          for name in *.zip
+          do
+              newname=${name%.zip}
+              newname="${newname}_$tag_name.zip"
+              mv $name $newname
+          done
+          for name in *.tar
+          do
+              newname=${name%.tar}
+              newname="${newname}_$tag_name.tar"
+              mv $name $newname
+          done
           sha256sum ./*.zip >> SHASUMS
           sha256sum ./*.tar >> SHASUMS
-          tag_name="${GITHUB_REF##*/}"
+         
           gh release create "$tag_name" ./*.zip ./*.tar SHASUMS
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
