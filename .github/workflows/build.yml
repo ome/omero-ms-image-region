@@ -4,6 +4,7 @@ name: Gradle
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -28,7 +29,7 @@ jobs:
           path: build/distributions/*
   upload:
     needs: build
-    if: startsWith(github.ref, 'refs/tags')
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         java: [11]
@@ -42,18 +43,13 @@ jobs:
       - name: Create a release and upload Release Assets
         run:  |
           cd ./omero-ms-image-region_${{ matrix.java }}
-          tag_name="${GITHUB_REF##*/}"
-          for name in *.zip
+          tag_name="b${{ github.run_id }}_github.run_attempt"
+          for file in .* *
           do
-              newname=${name%.zip}
-              newname="${newname}_$tag_name.zip"
-              mv $name $newname
-          done
-          for name in *.tar
-          do
-              newname=${name%.tar}
-              newname="${newname}_$tag_name.tar"
-              mv $name $newname
+            filename=$(basename -- "$file")
+            extension="${filename##*.}"
+            newname="${name}_$tag_name.${extension}"
+            mv $filename $newname
           done
           sha256sum ./*.zip >> SHASUMS
           sha256sum ./*.tar >> SHASUMS
