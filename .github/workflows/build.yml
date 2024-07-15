@@ -56,6 +56,6 @@ jobs:
             fi
           done
           title="$version_b${{github.run_number}}"
-          gh release create $tag -t "$title" --notes-from-tag $dir/*.zip $dir/*.tar SHASUMS
+          gh release create $tag $dir/*.zip $dir/*.tar SHASUMS --title "$title" --notes-from-tag
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
