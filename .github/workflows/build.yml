@@ -47,13 +47,13 @@ jobs:
           do
             if [ -f "$file" ];then
               filename=$(basename -- "$file")
-              extension="${filename##*.}"
-              name="${filename%.*}"
+              #extension="${filename##*.}"
+              # name="${filename%.*}"
               # newname="${name}_b${{github.run_number}}.${extension}"
-              newname="${name}.${extension}"
-              echo $newname
-              mv $dir/$filename $dir/$newname
-              sha256sum $dir/$newname >> SHASUMS
+              # newname="${name}.${extension}"
+              # echo $newname
+              # mv $dir/$filename $dir/$newname
+              sha256sum $dir/$filename >> SHASUMS
             fi
           done
           title="$version_b${{github.run_number}}"
