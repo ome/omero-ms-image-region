@@ -39,16 +39,19 @@ jobs:
         run:  |
           version=$(./gradlew properties | grep ^version:)
           tag=${GITHUB_REF#refs/*/}
-          dir=omero-ms-image-region_$jv
           for file in */*
             do
               if [ -f "$file" ];then
+                base=$(dirname $file)
+                version="${base##*_}"
                 filename=$(basename -- "$file")
-                echo $filename
-                sha256sum $file >> SHASUMS
+                extension="${filename##*.}"
+                name="${filename%.*}"
+                newname="${name}_$version.${extension}"
+                mv $file $newname
+                sha256sum $newname >> SHASUMS
               fi
           done
-          title="$version_b${{github.run_number}}"
-          gh release create $tag */*.zip */*.tar SHASUMS --title "$title" --notes-from-tag
+          gh release create $tag *.zip *.tar SHASUMS --notes-from-tag
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
