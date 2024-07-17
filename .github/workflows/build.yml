@@ -30,9 +30,6 @@ jobs:
   upload:
     needs: build
     if: startsWith(github.ref, 'refs/tags')
-    strategy:
-      matrix:
-        java: [11]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,21 +39,16 @@ jobs:
         run:  |
           version=$(./gradlew properties | grep ^version:)
           tag=${GITHUB_REF#refs/*/}
-          dir=omero-ms-image-region_${{ matrix.java }}
-          for file in "$dir"/*
-          do
-            if [ -f "$file" ];then
-              filename=$(basename -- "$file")
-              #extension="${filename##*.}"
-              # name="${filename%.*}"
-              # newname="${name}_b${{github.run_number}}.${extension}"
-              # newname="${name}.${extension}"
-              # echo $newname
-              # mv $dir/$filename $dir/$newname
-              sha256sum $dir/$filename >> SHASUMS
-            fi
+          dir=omero-ms-image-region_$jv
+          for file in */*
+            do
+              if [ -f "$file" ];then
+                filename=$(basename -- "$file")
+                echo $filename
+                sha256sum $file >> SHASUMS
+              fi
           done
           title="$version_b${{github.run_number}}"
-          gh release create $tag $dir/*.zip $dir/*.tar SHASUMS --title "$title" --notes-from-tag
+          gh release create $tag */*.zip */*.tar SHASUMS --title "$title" --notes-from-tag
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
