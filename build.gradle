@@ -86,7 +86,7 @@ dependencies {
 
     testImplementation("junit:junit:4.12")
     testImplementation 'org.mockito:mockito-core:2.28.2'
-    testImplementation 'com.glencoesoftware:bioformats2raw:0.9.3'
+    testImplementation 'com.glencoesoftware:bioformats2raw:0.9.4'
     testImplementation 'info.picocli:picocli:4.7.5'
 }
 
