@@ -22,6 +22,10 @@ repositories {
         url 'https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases'
     }
     maven {
+        name 'Unidata-All'
+        url 'https://artifacts.unidata.ucar.edu/repository/unidata-all'
+    }
+    maven {
         url 'https://artifacts.glencoesoftware.com/artifactory/ome.releases'
     }
     maven {
