@@ -15,7 +15,7 @@ repositories {
     mavenCentral()
     mavenLocal()
     maven {
-        url 'https://artifacts.openmicroscopy.or/artifactory/ome.releases'
+        url 'https://artifacts.openmicroscopy.org/artifactory/ome.releases'
     }
     maven {
         name 'Unidata'
